@@ -40,7 +40,7 @@ namespace ComplexAlgebra
         public override String ToString()
         {
             string retstr;
-            retstr = $"{Real} ";
+            retstr = Real != 0 ? $"{Real} " : "";
             if (Imaginary != 0)
             {
                 retstr += Imaginary > 0 ? $"+ i{Imaginary}" : $"- i{-Imaginary}";
