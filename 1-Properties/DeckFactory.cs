@@ -12,7 +12,7 @@ namespace Properties
         public IList<string> Seeds { get; set; }
         public IList<string> Names { get; set; }
 
-        public int GetDeckSize() => Names.Count * Seeds.Count;
+        public int DeckSize => Names.Count * Seeds.Count;
 
         public ISet<Card> Deck
         {   

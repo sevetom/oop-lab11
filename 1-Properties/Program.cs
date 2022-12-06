@@ -44,7 +44,7 @@ namespace Properties
             df.Names = Enum.GetNames(typeof(ItalianNames)).ToList();
             df.Seeds = Enum.GetNames(typeof(ItalianSeeds)).ToList();
 
-            Console.WriteLine("The {1} deck has {0} cards: ", df.GetDeckSize(), "italian");
+            Console.WriteLine("The {1} deck has {0} cards: ", df.DeckSize, "italian");
 
             foreach (Card c in df.Deck)
             {

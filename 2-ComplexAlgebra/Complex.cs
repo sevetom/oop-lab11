@@ -19,16 +19,17 @@ namespace ComplexAlgebra
     /// TODO:     - e.g. via the Equals(object) method
     public class Complex
     {
-        public double Real { get; set; }
-        public double Imaginary { get; set; }
-        public double Modulus => Math.Sqrt(Math.Pow(Real, 2) + Math.Pow(Imaginary, 2));
-        public double Phase => Math.Atan2(Imaginary, Real);
+        public double Real { get; }
+        public double Imaginary { get; }
 
         public Complex(double real, double imaginary)
         {
             Real = real;
             Imaginary = imaginary;
         }
+
+        public double Modulus => Math.Sqrt(Math.Pow(Real, 2) + Math.Pow(Imaginary, 2));
+        public double Phase => Math.Atan2(Imaginary, Real);
 
         public Complex Complement() => new Complex(Real, -Imaginary);
 
@@ -48,5 +49,9 @@ namespace ComplexAlgebra
         }
 
         public bool Equals(Complex num) => Real.Equals(num.Real) && Imaginary.Equals(num.Imaginary);
+    
+        public override bool Equals(object obj) => obj is Complex num && Equals(num);
+    
+        public override int GetHashCode() => HashCode.Combine(Real, Imaginary);
     }
 }
