@@ -14,22 +14,25 @@ namespace Properties
 
         public int GetDeckSize() => Names.Count * Seeds.Count;
 
-        public ISet<Card> GetDeck()
-        {
-            if (Names == null || Seeds == null)
+        public ISet<Card> Deck
+        {   
+            get 
             {
-                throw new InvalidOperationException();
-            }
+                if (Names == null || Seeds == null)
+                {
+                    throw new InvalidOperationException();
+                }
 
-            return new HashSet<Card>(Enumerable
-                .Range(0, Names.Count)
-                .SelectMany(i => Enumerable
-                    .Repeat(i, Seeds.Count)
-                    .Zip(
-                        Enumerable.Range(0, Seeds.Count),
-                        (n, s) => Tuple.Create(Names[n], Seeds[s], n)))
-                .Select(tuple => new Card(tuple))
-                .ToList());
+                return new HashSet<Card>(Enumerable
+                    .Range(0, Names.Count)
+                    .SelectMany(i => Enumerable
+                        .Repeat(i, Seeds.Count)
+                        .Zip(
+                            Enumerable.Range(0, Seeds.Count),
+                            (n, s) => Tuple.Create(Names[n], Seeds[s], n)))
+                    .Select(tuple => new Card(tuple))
+                    .ToList());
+            }
         }
     }
 }
