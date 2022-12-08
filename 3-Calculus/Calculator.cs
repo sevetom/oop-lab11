@@ -30,9 +30,7 @@ namespace Calculus
 
         private int _nValues;
         private Complex _shownValue;
-
         public Complex[] _operands;
-
         private char _operation;
 
         public char Operation
@@ -40,6 +38,7 @@ namespace Calculus
             get => _operation;
             set
             {   
+                ComputeResult();
                 _shownValue = null;
                 _operation = value;
             }
@@ -49,7 +48,7 @@ namespace Calculus
             _nValues = 0;
             _shownValue = null;
             _operands = new Complex[2];
-            Operation = ' ';
+            _operation = ' ';
         }
 
         public Complex Value 
@@ -57,26 +56,25 @@ namespace Calculus
             get => _shownValue;
             set
             {
-                _nValues++;
                 if (_nValues >= 2) {
-                    _operands[0] = ComputeResult();
+                    ComputeResult();
                     _nValues = 1;
                 }
                 _operands[_nValues] = value;
                 _shownValue = value;
+                _nValues++;
             } 
         }
 
-        public Complex ComputeResult() 
+        public void ComputeResult() 
         {   
             if (Operation != ' ' && _operands[0] != null && _operands[1] != null) {
-                Complex result;
-                if (Operation.Equals('+')) result = _operands[0].Plus(_operands[1]);
-                else result = _operands[0].Minus(_operands[1]);
-                _shownValue = result;
-                return result;
+                if (Operation.Equals('+')) _operands[0] = _operands[0].Plus(_operands[1]);
+                else _operands[0] = _operands[0].Minus(_operands[1]);
+                _shownValue = _operands[0];
+                _operation = ' ';
+                _operands[1] = null;
             }
-            return null;
         }
 
         public void Reset()
@@ -84,13 +82,12 @@ namespace Calculus
             _operands[0] = _operands[1] = null;
             _shownValue = null;
             _nValues = 0;
-            Operation = ' ';
+            _operation = ' ';
         }
 
         public override string ToString()
         {   
-            if (Value == null) return "null";
-            return $"{Value}";
+            return Value == null ? "null" : $"{Value}";
         }
     }
 }
