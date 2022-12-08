@@ -53,6 +53,7 @@ namespace ComplexAlgebra
                     retstr += Math.Abs(Imaginary) != 1 ? $"i{Imaginary}" : "i";
                 }
             }
+            else if (retstr == "") retstr = "0";
             return retstr;
         }
 
