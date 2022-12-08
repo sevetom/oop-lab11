@@ -50,7 +50,7 @@ namespace ComplexAlgebra
                 else
                 {   
                     retstr += Imaginary > 0 ? "+ " : "- ";
-                    retstr += Math.Abs(Imaginary) != 1 ? $" i{Imaginary}" : " i";
+                    retstr += Math.Abs(Imaginary) != 1 ? $"i{Imaginary}" : "i";
                 }
             }
             return retstr;
