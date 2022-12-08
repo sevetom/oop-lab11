@@ -49,7 +49,7 @@ namespace ComplexAlgebra
                 }
                 else
                 {   
-                    retstr = Imaginary > 0 ? "+ " : "- ";
+                    retstr += Imaginary > 0 ? "+ " : "- ";
                     retstr += Math.Abs(Imaginary) != 1 ? $" i{Imaginary}" : " i";
                 }
             }
