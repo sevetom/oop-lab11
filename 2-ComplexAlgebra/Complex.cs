@@ -41,16 +41,21 @@ namespace ComplexAlgebra
         {
             string retstr;
             retstr = Real != 0 ? $"{Real} " : "";
-            if (Imaginary != 0)
+            if (Imaginary != 0 && Imaginary != 1)
             {   
                 if (retstr.Equals(""))
                 {
                     retstr = $"{Imaginary}i";
-                } else
+                }
+                else
                 {
                     retstr += Imaginary > 0 ? $"+ i{Imaginary}" : $"- i{-Imaginary}";
                 }
             } 
+            else
+            {
+                retstr = Imaginary > 0 ? "+ i" : "- i";
+            }
             return retstr;
         }
 
