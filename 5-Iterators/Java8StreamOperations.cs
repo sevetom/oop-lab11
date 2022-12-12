@@ -18,7 +18,7 @@ namespace Iterators
         {
             foreach (TAny elem in sequence)
             {
-                consumer.Invoke(elem);
+                consumer(elem);
             }
         }
 
@@ -34,7 +34,7 @@ namespace Iterators
         {
             foreach (TAny elem in sequence)
             {
-                consumer.Invoke(elem);
+                consumer(elem);
                 yield return elem;
             }
         }
@@ -52,7 +52,7 @@ namespace Iterators
         {
             foreach (TAny elem in sequence)
             {
-                yield return mapper.Invoke(elem);
+                yield return mapper(elem);
             }
         }
 
@@ -69,7 +69,7 @@ namespace Iterators
         {
             foreach (TAny elem in sequence)
             {
-                if (predicate.Invoke(elem))
+                if (predicate(elem))
                 {
                     yield return elem;
                 }
@@ -87,8 +87,7 @@ namespace Iterators
             int i = 0;
             foreach (TAny elem in sequence)
             {
-                yield return new Tuple<int, TAny>(i, elem);
-                i++;
+                yield return Tuple.Create(i++, elem);
             }
         }
 
@@ -104,11 +103,21 @@ namespace Iterators
         /// <returns>the new sequence.</returns>
         public static TOther Reduce<TAny, TOther>(this IEnumerable<TAny> sequence, TOther seed, Func<TOther, TAny, TOther> reducer)
         {
+            bool first = true;
+            TOther reduction = default;
             foreach (TAny elem in sequence)
             {
-                return reducer.Invoke(seed, elem);
+                if (first)
+                {
+                    first = false;
+                    reduction = reducer(seed, elem);
+                }
+                else
+                {
+                    reduction = reducer(reduction, elem);
+                }
             }
-            return default;
+            return reduction;
         }
 
         /// <summary>
@@ -125,7 +134,7 @@ namespace Iterators
             bool skip = true;
             foreach (TAny elem in sequence)
             {
-                if (!predicate.Invoke(elem) || !skip)
+                if (!predicate(elem) || !skip)
                 {   
                     skip = false;
                     yield return elem;
@@ -169,10 +178,11 @@ namespace Iterators
         {
             foreach (TAny elem in sequence)
             {
-                if (predicate.Invoke(elem))
+                if (predicate(elem))
                 {
                     yield return elem;
                 }
+                else break;
             }
         }
 
@@ -189,7 +199,7 @@ namespace Iterators
             int i = 0;
             foreach (TAny elem in sequence)
             {
-                if (i < count)
+                if (i <= count)
                 {
                     yield return elem; 
                 }
@@ -204,8 +214,10 @@ namespace Iterators
         /// <returns>an infinite sequence of integers.</returns>
         public static IEnumerable<int> Integers(int start)
         {
-            for (int i = 0; i < int.MaxValue ; i++)
+            int i = start;
+            while (true)
             {
+                i++;
                 yield return i;
             }
         }
