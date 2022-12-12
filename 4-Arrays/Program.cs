@@ -19,11 +19,11 @@ namespace Arrays
         /// <seealso cref="Examples.Max"/>
         public static Complex MaxModulus(Complex[] array)
         {
-            Complex max = new Complex(0, 0);
+            Complex max = null;
             for (int i = 0; i < array.Length; i++)
             {
                 Complex current = array[i];
-                if (current.Modulus > max.Modulus)
+                if (max == null || current.Modulus > max.Modulus)
                 {
                     max = current;
                 }
@@ -63,7 +63,7 @@ namespace Arrays
         /// <seealso cref="Examples.BubbleSort"/>
         public static Complex[] SortByPhase(Complex[] array)
         {   
-            Complex[] sorted = Program.Clone(array);
+            Complex[] sorted = Clone(array);
             for (int i = 0; i < sorted.Length; i++)
             {
                 for (int j = i - 1; j >= 0; j--)
@@ -91,12 +91,13 @@ namespace Arrays
         /// TODO: implement this method
         public static string ArrayToString(Complex[] array)
         {
-            String retstr = "[ ";
-            for (int i = 0; i < array.Length; i++)
+            String retstr = "[";
+            for (int i = 0; i < array.Length - 1; i++)
             {    
                 retstr += array[i].ToString() + "; ";
             }
-            retstr += "\b\b]";
+            retstr += array[array.Length - 1];
+            retstr += "]";
             return retstr;
         }
         
