@@ -31,9 +31,16 @@ namespace Calculus
         private int _nValues;
         private Complex _shownValue;
         public Complex[] _operands;
-        private char _operation;
+        private char? _operation;
 
-        public char Operation
+        public Calculator() {
+            _nValues = 0;
+            _shownValue = null;
+            _operands = new Complex[2];
+            _operation = null;
+        }
+
+        public char? Operation
         {
             get => _operation;
             set
@@ -42,13 +49,6 @@ namespace Calculus
                 _shownValue = null;
                 _operation = value;
             }
-        }
-
-        public Calculator() {
-            _nValues = 0;
-            _shownValue = null;
-            _operands = new Complex[2];
-            _operation = ' ';
         }
 
         public Complex Value 
@@ -68,7 +68,7 @@ namespace Calculus
 
         public void ComputeResult() 
         {   
-            if (Operation != ' ' && _operands[0] != null && _operands[1] != null) {
+            if (Operation != null && _operands[0] != null && _operands[1] != null) {
                 if (Operation.Equals('+')) _operands[0] = _operands[0].Plus(_operands[1]);
                 else _operands[0] = _operands[0].Minus(_operands[1]);
                 _shownValue = _operands[0];
@@ -82,7 +82,7 @@ namespace Calculus
             _operands[0] = _operands[1] = null;
             _shownValue = null;
             _nValues = 0;
-            _operation = ' ';
+            _operation = null;
         }
 
         public override string ToString()
